@@ -5,18 +5,23 @@ class Game {
     this.width = $canvas.width;
     this.height = $canvas.height;
     this.setKeyBindings();
-    this.speed = 10; // global speed
+    this.speed = 5; // global speed
     this.coinTimer = 0;
     this.coinInterval = 1500;
     this.enemyTimer = 0;
     this.enemyInterval = 2000; // Play with this number, try the same logic of coin/enemy position ==> Math.Random and Array
+    this.coinArr = [];
+    this.enemyArr = [];
+    this.toalCoins = 0;
+    this.actualEnemies = this.enemyCleaner();
+    //this.start();
     //this.updateSpeed = 10; //this.calculatesDifficult();
   }
   setKeyBindings() {
     window.addEventListener('keydown', (event) => {
       const keyCode = event.keyCode;
       switch (keyCode) {
-        case 38: // up
+        case 39: // up
           event.preventDefault();
           this.player.moveUp();
           this.draw();
@@ -26,7 +31,7 @@ class Game {
           this.player.moveJump();
           this.draw();
           break;
-        case 40:
+        case 37:
           event.preventDefault();
           this.player.moveDown();
           this.draw();
@@ -36,7 +41,7 @@ class Game {
     window.addEventListener('keyup', (event) => {
       // reset to normal position
       event.code;
-      if (event.code === 'ArrowDown') {
+      if (event.code === 'ArrowLeft') {
         event.preventDefault();
         this.player.moveReset();
         this.draw();
@@ -47,8 +52,8 @@ class Game {
     console.log(this);
     this.player = new Player(this);
     this.background = new Background(this);
-    this.coinArr = [];
-    this.enemyArr = [];
+    // this.coinArr = [];
+    // this.enemyArr = [];
 
     this.loop();
   }
@@ -82,14 +87,8 @@ class Game {
   }
 
   enemyCleaner() {
-    // Clean the old objects
-    for (let enemy of this.enemyArr) {
-      if (enemy['x'] < 0) {
-        // slice or filter ? if I filter, will result in a ner array, but I want to keep at the same
-        //   0: Enemy {game: Game, x: -220, y: 200, speed: 10, updateSpeed: undefined}
-        // length: 1
-      }
-    }
+    const validEnemiesArr = this.enemyArr.filter((element) => element.x > 300);
+    return validEnemiesArr;
   }
 
   coinGenerator(timestamp) {
@@ -100,6 +99,10 @@ class Game {
     }
     //we will create coins at a coinInterval time
   }
+  coinsCleaner() {
+    const validCoinsArr = this.coinArr.filter((element) => element.x > 200);
+    return validCoinsArr;
+  }
 
   runLogic() {
     //this.enemy.runLogic();
@@ -109,6 +112,8 @@ class Game {
     for (let enemy of this.enemyArr) {
       enemy.runLogic();
     }
+    this.player.checkCollisionEnemy();
+    this.player.checkCollisionCoins();
   }
 
   // Balance the game speed
@@ -124,6 +129,7 @@ class Game {
     this.enemyGenerator(timestamp);
     this.runLogic();
     this.coinGenerator(timestamp);
+    this.enemyCleaner();
     this.draw();
 
     window.requestAnimationFrame((timestamp) => this.loop(timestamp));

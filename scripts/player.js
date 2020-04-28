@@ -6,11 +6,15 @@ class Player {
     this.playerSizeX = 100;
     this.playerSizey = 150;
     this.speedY = 5;
-    this.GRAVITY = 0.2;
+    this.speedX = this.game.speed;
+    this.GRAVITY = 0.1;
     //
   }
   loopGravity() {
     if (this.y <= 250) {
+      if (this.y <= 100) {
+        this.y--;
+      }
       // this.speedY *= this.GRAVITY;
       this.y += this.speedY + this.GRAVITY;
       setTimeout(() => {
@@ -20,23 +24,31 @@ class Player {
       this.speedY = 10;
     }
   }
+  loopWind() {
+    // moves player to the original position
+    if (this.x > 300) {
+      this.x--;
+      setTimeout(() => {
+        this.loopWind();
+      }, 1000 / 60); //how ease this curve ?
+    }
+  }
 
   moveUp() {
-    this.y = 150;
-    //console.log(this.y);
+    this.y = 200;
     this.loopGravity();
   }
   moveDown() {
     this.y = 300;
     this.playerSizey = 100;
-
-    //console.log(this.y);
   }
   moveJump() {
     this.loopGravity();
+    this.loopWind();
     this.y = 0;
-    //console.log(this.y);
+    this.x = 450; // gives impulse to player
     this.loopGravity();
+    this.loopWind();
   }
 
   moveReset() {
@@ -45,30 +57,44 @@ class Player {
   }
 
   checkCollisionEnemy() {
-    // const enimies = this.game.enemyArr;
-    // console.log(enimies);
-
-    for (let enemy of this.game.enemyArr) {
-      if (enemy['y'] === this.y && enemy['y'] === this.x) {
-        console.log('Collides');
+    let gameIsRunning = true;
+    const validEnemies = this.game.enemyCleaner();
+    // const distance = [];
+    for (let enemy of validEnemies) {
+      let valueX = (enemy.x + enemy.enemySizeX) / 2;
+      let valueY = (enemy.y + enemy.enemySizeY) / 2;
+      const result = this.calcDistance(valueX, valueY);
+      if (result < 50) {
+        gameIsRunning = false;
       }
     }
-    // const colision = false;
-    // if (!colision) {
-    //   this.x === console.log('Game Runiing');
-    //   return colision;
-    // } else {
-    //   console.log('Game Over');
-    // }
+
+    return gameIsRunning;
   }
 
   checkCollisionCoins() {
-    // const coin = this.coin.game
-    const colision = false;
-    if (colision) {
-      console.log('+1 egg');
-      return colision;
+    const validCoins = this.game.coinsCleaner();
+    let getCoin = false;
+    // const distance = [];
+    for (let coin of validCoins) {
+      let valueX = (coin.x + 50) / 2;
+      let valueY = (coin.y + 50) / 2;
+      const result = this.calcDistance(valueX, valueY);
+      if (result < 30) {
+        getCoin = true;
+      }
     }
+
+    return getCoin;
+  }
+
+  calcDistance(x2, y2) {
+    let x1 = (this.x + this.playerSizeX) / 2; // middle
+    let y1 = (this.y + this.playerSizey) / 2; // middle
+
+    const xDist = x2 - x1;
+    const yDist = y2 - y1;
+    return Math.hypot(xDist, yDist);
   }
 
   draw() {

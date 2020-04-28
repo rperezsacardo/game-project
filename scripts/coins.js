@@ -3,6 +3,8 @@ class Coin {
     this.game = game;
     this.x = this.randomPositionX();
     this.y = this.randomPositionY();
+    this.coinSizeX = 50;
+    this.coinSizeY = 50;
     this.speed = this.game.speed;
     this.updateSpeed = this.speed;
   }
@@ -10,7 +12,7 @@ class Coin {
   draw() {
     const context = this.game.context;
     context.fillStyle = 'green';
-    context.fillRect(this.x, this.y, 50, 50);
+    context.fillRect(this.x, this.y, this.coinSizeX, this.coinSizeY);
   }
 
   runLogic() {

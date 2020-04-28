@@ -3,6 +3,8 @@ class Enemy {
     this.game = game;
     this.x = this.randomPositionX();
     this.y = this.randomPositionY();
+    this.enemySizeX = 100;
+    this.enemySizeY = 100;
     this.speed = this.game.speed;
     this.updateSpeed = this.game.updateSpeed;
   }
@@ -10,11 +12,11 @@ class Enemy {
   draw() {
     const context = this.game.context;
     context.fillStyle = 'red';
-    context.fillRect(this.x, this.y, 100, 100);
+    context.fillRect(this.x, this.y, this.enemySizeX, this.enemySizeY);
   }
   randomPositionY() {
     let randomNumb = Math.floor(Math.random() * 4); //...
-    const resultY = [100, 200, 300, 300]; // Possible enemies positions ==> more at ground level
+    const resultY = [300, 300, 300, 50]; // Possible enemies positions ==> more at ground level
     return resultY[randomNumb];
     //Try push new values when incrise difficult
   }
@@ -25,8 +27,7 @@ class Enemy {
   }
 
   runLogic() {
-    this.x -= this.speed * 2;
-    //setTimeout(this.runLogic(speed), 1000 / freq);
+    this.x -= this.speed;
   }
   sortEnemy() {
     // Random type of enemy

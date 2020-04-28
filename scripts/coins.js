@@ -1,21 +1,31 @@
 class Coin {
   constructor(game) {
     this.game = game;
-    this.x = 1000 
-    this.y = 200
-  }
-  draw(speed) {
-    const context = this.game.context;
-    let enemySpeed = speed;
-    if ((this.x -= speed) > 0) {
-      context.fillStyle = 'red';
-      context.fillRect(this.x - enemySpeed, this.y, 50, 50);
-      console.log(this.x - enemySpeed);
-    }
+    this.x = this.randomPositionX();
+    this.y = this.randomPositionY();
+    this.speed = this.game.speed;
+    this.updateSpeed = this.speed;
   }
 
-  randomPosition() {
-    //...
+  draw() {
+    const context = this.game.context;
+    context.fillStyle = 'green';
+    context.fillRect(this.x, this.y, 50, 50);
+  }
+
+  runLogic() {
+    this.x -= this.speed;
+  }
+
+  randomPositionY() {
+    let randomNumb = Math.floor(Math.random() * 3); //...
+    const resultY = [100, 200, 300]; // Possible coins positions
+    return resultY[randomNumb];
+  }
+  randomPositionX() {
+    let randomNumb = Math.floor(Math.random() * 3); //...
+    const resultY = [1000, 1200, 1300]; // Possible coins positions
+    return 1000;
   }
 
   checkOtherCoins() {

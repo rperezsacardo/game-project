@@ -15,27 +15,27 @@ class Player {
       this.y += this.speedY + this.GRAVITY;
       setTimeout(() => {
         this.loopGravity();
-      }, 1000/60); //how ease this curve ?
+      }, 1000 / 60); //how ease this curve ?
     } else {
       this.speedY = 10;
     }
   }
 
   moveUp() {
-    this.y = 100;
-    console.log(this.y);
+    this.y = 150;
+    //console.log(this.y);
     this.loopGravity();
   }
   moveDown() {
     this.y = 300;
     this.playerSizey = 100;
 
-    console.log(this.y);
+    //console.log(this.y);
   }
   moveJump() {
     this.loopGravity();
     this.y = 0;
-    console.log(this.y);
+    //console.log(this.y);
     this.loopGravity();
   }
 
@@ -44,40 +44,26 @@ class Player {
     this.playerSizey = 150;
   }
 
-  // --------------------------------------------- console works, but this.y not
-  // move(key) {
-  //   switch (key) {
-  //     case 'up': // up
-  //       this.y = 300;
-  //       console.log(this.y);
-  //       break;
-  //     case 'jump': //Duble Jump
-  //       this.y = 100;
-  //       console.log(this.y);
-  //       break;
-  //     case 'down':
-  //       this.y = 450;
-  //       console.log(this.y);
-  //       break;
-  //     default:
-  //       this.y = 400;
-  //       console.log(this.y);
-  //   }
-  // }
-
-  // ---------------------------------------------------
-
   checkCollisionEnemy() {
-    const colision = false;
-    if (!colision) {
-      console.log('Game Runiing');
-      return colision;
-    } else {
-      console.log('Game Over');
+    // const enimies = this.game.enemyArr;
+    // console.log(enimies);
+
+    for (let enemy of this.game.enemyArr) {
+      if (enemy['y'] === this.y && enemy['y'] === this.x) {
+        console.log('Collides');
+      }
     }
+    // const colision = false;
+    // if (!colision) {
+    //   this.x === console.log('Game Runiing');
+    //   return colision;
+    // } else {
+    //   console.log('Game Over');
+    // }
   }
 
   checkCollisionCoins() {
+    // const coin = this.coin.game
     const colision = false;
     if (colision) {
       console.log('+1 egg');

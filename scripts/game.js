@@ -5,8 +5,12 @@ class Game {
     this.width = $canvas.width;
     this.height = $canvas.height;
     this.setKeyBindings();
-    this.speed = 5;
-    this.updateSpeed = this.calculatesDifficult();
+    this.speed = 10; // global speed
+    this.coinTimer = 0;
+    this.coinInterval = 1500;
+    this.enemyTimer = 0;
+    this.enemyInterval = 2000; // Play with this number, try the same logic of coin/enemy position ==> Math.Random and Array
+    //this.updateSpeed = 10; //this.calculatesDifficult();
   }
   setKeyBindings() {
     window.addEventListener('keydown', (event) => {
@@ -16,26 +20,23 @@ class Game {
           event.preventDefault();
           this.player.moveUp();
           this.draw();
-          console.log('up');
           break;
         case 32: //Duble Jump
           event.preventDefault();
           this.player.moveJump();
           this.draw();
-          console.log('ju');
           break;
         case 40:
           event.preventDefault();
           this.player.moveDown();
           this.draw();
-          console.log('do');
           break;
       }
     });
     window.addEventListener('keyup', (event) => {
+      // reset to normal position
       event.code;
       if (event.code === 'ArrowDown') {
-        console.log('reset');
         event.preventDefault();
         this.player.moveReset();
         this.draw();
@@ -46,8 +47,9 @@ class Game {
     console.log(this);
     this.player = new Player(this);
     this.background = new Background(this);
-    this.coin = new Coin(this);
-    this.enemy = new Enemy(this);
+    this.coinArr = [];
+    this.enemyArr = [];
+
     this.loop();
   }
 
@@ -56,39 +58,74 @@ class Game {
   }
 
   draw() {
-    //debugger;
     this.cleanScreen();
-    this.background.draw(this.updateSpeed);
+    this.background.draw(this.speed);
     this.background.drawGrid();
     this.player.draw();
-    this.enemy.draw(this.updateSpeed);
-    this.coin.draw(this.updateSpeed);
+    for (let coin of this.coinArr) {
+      coin.draw();
+    }
 
-    //...
+    for (let enemy of this.enemyArr) {
+      enemy.draw();
+    }
   }
-  calculatesDifficult() { // Balance the game speed 
-    //
-    let collectedCoins = 10;
+  enemyGenerator(timestamp) {
+    if (this.enemyTimer < timestamp - this.enemyInterval) {
+      this.enemyTimer = timestamp;
+      const enemy = new Enemy(this);
+      this.enemyArr.push(enemy);
+      //console.log(this.enemyArr);
+    }
 
+    //we will create coins at a coinInterval time
+  }
+
+  enemyCleaner() {
+    // Clean the old objects
+    for (let enemy of this.enemyArr) {
+      if (enemy['x'] < 0) {
+        // slice or filter ? if I filter, will result in a ner array, but I want to keep at the same
+        //   0: Enemy {game: Game, x: -220, y: 200, speed: 10, updateSpeed: undefined}
+        // length: 1
+      }
+    }
+  }
+
+  coinGenerator(timestamp) {
+    if (this.coinTimer < timestamp - this.coinInterval) {
+      this.coinTimer = timestamp;
+      const newCoin = new Coin(this);
+      this.coinArr.push(newCoin);
+    }
+    //we will create coins at a coinInterval time
+  }
+
+  runLogic() {
+    //this.enemy.runLogic();
+    for (let coin of this.coinArr) {
+      coin.runLogic();
+    }
+    for (let enemy of this.enemyArr) {
+      enemy.runLogic();
+    }
+  }
+
+  // Balance the game speed
+  calculatesDifficult() {
+    let collectedCoins = 100;
     if (collectedCoins % 100 === 0) {
       this.speed++;
     }
+    // console.log(this.speed);
     return this.speed;
   }
-  loop() {
-    //this.runLogic();
-    // reset() {}
-    // pause() {
-    //   //...
-    // }
-
-    // runLogic() {
-    //   return true;
-    // }
+  loop(timestamp) {
+    this.enemyGenerator(timestamp);
+    this.runLogic();
+    this.coinGenerator(timestamp);
     this.draw();
 
-    setTimeout(() => {
-      this.loop();
-    }, 1000 / 120);
+    window.requestAnimationFrame((timestamp) => this.loop(timestamp));
   }
 }

@@ -7,7 +7,6 @@ class Results {
     const context = this.game.context;
     const gameStatus = this.game.gameStatus;
     const collision = this.game.player.checkCollisionEnemy();
-    console.log(gameStatus);
     if (!gameStatus && collision) {
       context.font = '24px sans-serif';
       context.fillStyle = 'white';
@@ -29,7 +28,6 @@ class Results {
   draw() {
     const context = this.game.context;
     const gameStatus = this.game.gameStatus;
-    console.log(gameStatus);
     if (!gameStatus) {
       context.font = '24px sans-serif';
       context.fillStyle = 'green';

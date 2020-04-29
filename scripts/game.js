@@ -6,9 +6,9 @@ class Game {
     this.height = $canvas.height;
     this.speed = 8; // global speed
     this.coinTimer = 0;
-    this.coinInterval = 3000;
+    this.coinInterval = 1500;
     this.enemyTimer = 0;
-    this.enemyInterval = 2000; // Play with this number, try the same logic of coin/enemy position ==> Math.Random and Array
+    this.enemyInterval = 5000; // Play with this number, try the same logic of coin/enemy position ==> Math.Random and Array
     this.coinArr = [];
     this.enemyArr = [];
     this.totalCoins = 0;

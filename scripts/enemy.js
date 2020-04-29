@@ -6,7 +6,7 @@ class Enemy {
     this.enemySizeX = 100;
     this.enemySizeY = 100;
     this.speed = this.game.speed;
-    this.updateSpeed = this.game.updateSpeed;
+    this.updateSpeed = this.game.updateSpeed * 2;
     this.enemyImg = new Image();
     this.enemyImg.src = './images/enemy_01.png';
     this.enemySizeX = this.enemyImg.width; // 100
@@ -21,8 +21,8 @@ class Enemy {
   }
   randomPositionY() {
     let randomNumb = Math.floor(Math.random() * 4); //...
-    const resultY = [300, 300, 300, 50]; // Possible enemies positions ==> more at ground level
-    return resultY[randomNumb];
+    const resultY = [300, 250, 300, 50]; // Possible enemies positions ==> more at ground level
+    return 223 //resultY[randomNumb];
     //Try push new values when incrise difficult
   }
   randomPositionX() {
@@ -33,7 +33,7 @@ class Enemy {
 
   runLogic() {
     if (this.speed < 10) {
-      this.speed = 10;
+      this.speed = 20;
     }
     this.x -= this.speed;
   }

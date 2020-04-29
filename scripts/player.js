@@ -3,9 +3,10 @@ class Player {
     this.game = game;
     this.x = 300;
     this.y = 250;
-    this.speedY = 5;
+    this.velocityY = 0;
     this.speedX = this.game.speed;
-    this.GRAVITY = 0.1;
+    this.GRAVITY = 0.99;
+    this.friction = 0.5;
     this.playerImg = new Image();
     this.playerImg.src = './images/player_01.png';
     this.playerSizeX = this.playerImg.width; // 100
@@ -13,39 +14,50 @@ class Player {
 
     //
   }
-  loopGravity() {
-    if (this.y <= 250) {
-      if (this.y <= 100) {
-        this.y--;
-      }
-      // this.speedY *= this.GRAVITY;
-      this.y += this.speedY + this.GRAVITY;
-      setTimeout(() => {
-        this.loopGravity();
-      }, 1000 / 60); //how ease this curve ?
-    } else {
-      this.speedY = 10;
+
+  moveDown() {
+    if (!this.jumping) {
+      this.y = 310;
+      this.down = true;
     }
   }
 
-  moveUp() {
-    this.y = 200;
-    this.loopGravity();
-  }
-  moveDown() {
-    this.y = 300;
-    this.playerSizeY = 100;
-  }
   moveJump() {
-    // needs to be more smooth
-    this.loopGravity();
-    this.y = 0;
-    this.loopGravity();
+    if (!this.jumping && !this.down) {
+      console.log('jump');
+      this.velocityY = -10; //
+      this.jump();
+      this.loopGravity();
+      this.jumping = true;
+    }
+  }
+  loopGravity() {
+    this.velocityY * -1;
+    this.y += this.velocityY * this.GRAVITY;
+    if (this.y < 250) {
+      setTimeout(() => {
+        this.loopGravity();
+      }, 1000 / 60);
+    } else {
+      this.jumping = false;
+    }
+  }
+  jump() {
+    this.y += (this.velocityY + (this.GRAVITY / 1000) * 16) * this.friction;
+    if (this.y > 50) {
+      setTimeout(() => {
+        this.jump();
+      }, 1000 / 60); //how ease this curve ?
+    } else {
+      this.velocityY *= -1;
+    }
   }
 
   moveReset() {
-    this.y = 250;
-    this.playerSizeY = 150;
+    if (!this.jumping) {
+      this.y = 250;
+      this.down = false;
+    }
   }
 
   checkCollisionEnemy() {
@@ -54,10 +66,10 @@ class Player {
     const validEnemies = this.game.enemyCleaner();
     // const distance = [];
     for (let enemy of validEnemies) {
-      let valueX = (enemy.x + enemy.enemySizeX / 4) / 2; // try to thinh a way to update 4 automatic
+      let valueX = (enemy.x + enemy.enemySizeX / 4) / 2; // try to think a way to update 4 automatic
       let valueY = (enemy.y + enemy.enemySizeY / 4) / 2; // same
       const result = this.calcDistance(valueX, valueY);
-      if (result < 50) {
+      if (result < 40) {
         auxArray.push(result);
       }
     }

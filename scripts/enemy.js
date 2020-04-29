@@ -7,12 +7,17 @@ class Enemy {
     this.enemySizeY = 100;
     this.speed = this.game.speed;
     this.updateSpeed = this.game.updateSpeed;
+    this.enemyImg = new Image();
+    this.enemyImg.src = './images/enemy_01.png';
+    this.enemySizeX = this.enemyImg.width; // 100
+    this.enemySizeY = this.enemyImg.height; // 150
   }
 
   draw() {
     const context = this.game.context;
-    context.fillStyle = 'red';
-    context.fillRect(this.x, this.y, this.enemySizeX, this.enemySizeY);
+    context.drawImage(this.enemyImg, this.x, this.y, this.enemySizeX / 4, this.enemySizeY / 4);
+    // context.fillStyle = 'red';
+    // context.fillRect(this.x, this.y, this.enemySizeX, this.enemySizeY);
   }
   randomPositionY() {
     let randomNumb = Math.floor(Math.random() * 4); //...
@@ -27,8 +32,8 @@ class Enemy {
   }
 
   runLogic() {
-    if(this.speed < 10){
-      this.speed = 10 
+    if (this.speed < 10) {
+      this.speed = 10;
     }
     this.x -= this.speed;
   }

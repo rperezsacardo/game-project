@@ -3,11 +3,13 @@ class Player {
     this.game = game;
     this.x = 300;
     this.y = 250;
-    this.playerSizeX = 100;
-    this.playerSizeY = 150;
     this.speedY = 5;
     this.speedX = this.game.speed;
     this.GRAVITY = 0.1;
+    this.playerImg = new Image();
+    this.playerImg.src = './images/player_01.png';
+    this.playerSizeX = this.playerImg.width; // 100
+    this.playerSizeY = this.playerImg.height; // 150
 
     //
   }
@@ -48,17 +50,24 @@ class Player {
 
   checkCollisionEnemy() {
     let auxArray = [];
+    //let collided = true;
     const validEnemies = this.game.enemyCleaner();
+    // const distance = [];
     for (let enemy of validEnemies) {
-      let valueX = (enemy.x + enemy.enemySizeX) / 2;
-      let valueY = (enemy.y + enemy.enemySizeY) / 2;
+      let valueX = (enemy.x + enemy.enemySizeX / 4) / 2; // try to thinh a way to update 4 automatic
+      let valueY = (enemy.y + enemy.enemySizeY / 4) / 2; // same
       const result = this.calcDistance(valueX, valueY);
       if (result < 50) {
         auxArray.push(result);
       }
     }
+    if (!auxArray.length) {
+      return false;
+    } else {
+      return true;
+    }
 
-    return auxArray;
+    // return collided;
   }
 
   calcDistance(x2, y2) {
@@ -72,8 +81,11 @@ class Player {
 
   draw() {
     const context = this.game.context;
-    context.fillStyle = 'navy';
-    context.fillRect(this.x, this.y, this.playerSizeX, this.playerSizeY);
+    // context.fillStyle = 'navy';
+    // context.fillRect(this.x, this.y, this.playerSizeX, this.playerSizeY);
+
+    const player = this.playerImg;
+    context.drawImage(player, this.x, this.y);
   }
   runLogic() {
     // // this.checkCollisionCoins();

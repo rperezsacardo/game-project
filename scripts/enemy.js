@@ -27,6 +27,9 @@ class Enemy {
   }
 
   runLogic() {
+    if(this.speed < 10){
+      this.speed = 10 
+    }
     this.x -= this.speed;
   }
   sortEnemy() {

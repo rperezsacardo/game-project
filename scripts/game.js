@@ -4,7 +4,6 @@ class Game {
     this.context = $canvas.getContext('2d');
     this.width = $canvas.width;
     this.height = $canvas.height;
-    this.setKeyBindings();
     this.speed = 5; // global speed
     this.coinTimer = 0;
     this.coinInterval = 1500;
@@ -12,8 +11,11 @@ class Game {
     this.enemyInterval = 2000; // Play with this number, try the same logic of coin/enemy position ==> Math.Random and Array
     this.coinArr = [];
     this.enemyArr = [];
-    this.toalCoins = 0;
+    this.totalCoins = 0;
     this.actualEnemies = this.enemyCleaner();
+    this.restart();
+
+    this.setKeyBindings();
     //this.start();
     //this.updateSpeed = 10; //this.calculatesDifficult();
   }
@@ -24,17 +26,14 @@ class Game {
         case 39: // up
           event.preventDefault();
           this.player.moveUp();
-          this.draw();
           break;
         case 32: //Duble Jump
           event.preventDefault();
           this.player.moveJump();
-          this.draw();
           break;
         case 37:
           event.preventDefault();
           this.player.moveDown();
-          this.draw();
           break;
       }
     });
@@ -44,20 +43,39 @@ class Game {
       if (event.code === 'ArrowLeft') {
         event.preventDefault();
         this.player.moveReset();
-        this.draw();
       }
     });
   }
-  start() {
+  restart() {
     console.log(this);
     this.player = new Player(this);
     this.background = new Background(this);
-    // this.coinArr = [];
-    // this.enemyArr = [];
+    this.running = 1;
+  }
 
+  start() {
+    this.running = 1;
     this.loop();
   }
 
+  addCoin() {
+    // It's adding a coin for ever collsion with player, should do it only once.
+    const getCoin = this.player.checkCollisionCoins();
+    if (getCoin) {
+      this.totalCoins++;
+    }
+
+    console.log(this.totalCoins);
+  }
+  gameIsRunning() {
+    const array = this.player.checkCollisionEnemy();
+
+    if (!array.length) {
+      return (this.running = 1);
+    } else {
+      return (this.running = 0);
+    }
+  }
   cleanScreen() {
     this.context.clearRect(0, 0, this.width, this.height);
   }
@@ -75,7 +93,9 @@ class Game {
       enemy.draw();
     }
   }
+
   enemyGenerator(timestamp) {
+    // Can I add this at Enemy Class ?
     if (this.enemyTimer < timestamp - this.enemyInterval) {
       this.enemyTimer = timestamp;
       const enemy = new Enemy(this);
@@ -87,11 +107,13 @@ class Game {
   }
 
   enemyCleaner() {
+    // Can I add this at Enemy Class ?
     const validEnemiesArr = this.enemyArr.filter((element) => element.x > 300);
     return validEnemiesArr;
   }
 
   coinGenerator(timestamp) {
+    // Can I add this at Coin  Class ?
     if (this.coinTimer < timestamp - this.coinInterval) {
       this.coinTimer = timestamp;
       const newCoin = new Coin(this);
@@ -100,20 +122,20 @@ class Game {
     //we will create coins at a coinInterval time
   }
   coinsCleaner() {
+    // Can I add this at Coin  Class ?
     const validCoinsArr = this.coinArr.filter((element) => element.x > 200);
     return validCoinsArr;
   }
 
   runLogic() {
-    //this.enemy.runLogic();
     for (let coin of this.coinArr) {
       coin.runLogic();
     }
     for (let enemy of this.enemyArr) {
       enemy.runLogic();
     }
-    this.player.checkCollisionEnemy();
-    this.player.checkCollisionCoins();
+    this.player.runLogic();
+    //this.loose()
   }
 
   // Balance the game speed
@@ -126,12 +148,16 @@ class Game {
     return this.speed;
   }
   loop(timestamp) {
-    this.enemyGenerator(timestamp);
+    this.enemyGenerator(timestamp); // Can I add this at Enemy Class ?
     this.runLogic();
-    this.coinGenerator(timestamp);
+    this.coinGenerator(timestamp); // Can I add this at Coin  Class ?
     this.enemyCleaner();
+    this.gameIsRunning();
+    this.addCoin();
     this.draw();
 
-    window.requestAnimationFrame((timestamp) => this.loop(timestamp));
+    if (this.running) {
+      window.requestAnimationFrame((timestamp) => this.loop(timestamp));
+    }
   }
 }

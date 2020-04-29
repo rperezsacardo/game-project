@@ -8,6 +8,7 @@ class Player {
     this.speedY = 5;
     this.speedX = this.game.speed;
     this.GRAVITY = 0.1;
+
     //
   }
   loopGravity() {
@@ -24,15 +25,6 @@ class Player {
       this.speedY = 10;
     }
   }
-  loopWind() {
-    // moves player to the original position
-    if (this.x > 300) {
-      this.x--;
-      setTimeout(() => {
-        this.loopWind();
-      }, 1000 / 60); //how ease this curve ?
-    }
-  }
 
   moveUp() {
     this.y = 200;
@@ -43,12 +35,10 @@ class Player {
     this.playerSizey = 100;
   }
   moveJump() {
+    // needs to be more smooth
     this.loopGravity();
-    this.loopWind();
     this.y = 0;
-    this.x = 450; // gives impulse to player
     this.loopGravity();
-    this.loopWind();
   }
 
   moveReset() {
@@ -57,7 +47,7 @@ class Player {
   }
 
   checkCollisionEnemy() {
-    let gameIsRunning = true;
+    let auxArray = [];
     const validEnemies = this.game.enemyCleaner();
     // const distance = [];
     for (let enemy of validEnemies) {
@@ -65,27 +55,28 @@ class Player {
       let valueY = (enemy.y + enemy.enemySizeY) / 2;
       const result = this.calcDistance(valueX, valueY);
       if (result < 50) {
-        gameIsRunning = false;
+        auxArray.push(result);
       }
     }
 
-    return gameIsRunning;
+    return auxArray;
   }
 
   checkCollisionCoins() {
+    let aux = 0;
+
     const validCoins = this.game.coinsCleaner();
-    let getCoin = false;
     // const distance = [];
     for (let coin of validCoins) {
       let valueX = (coin.x + 50) / 2;
       let valueY = (coin.y + 50) / 2;
       const result = this.calcDistance(valueX, valueY);
       if (result < 30) {
-        getCoin = true;
+        aux++;
       }
     }
 
-    return getCoin;
+    return aux;
   }
 
   calcDistance(x2, y2) {
@@ -103,7 +94,9 @@ class Player {
     context.fillRect(this.x, this.y, this.playerSizeX, this.playerSizey);
   }
   runLogic() {
-    this.move();
-    //this.checkCollisionEnemy();
+    this.checkCollisionCoins();
+    if (this.checkCollisionEnemy() > 0) {
+      this.totalCoins++;
+    }
   }
 }

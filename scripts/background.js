@@ -15,7 +15,6 @@ class Background {
     if (this.imageWidth - this.x - speed > 0) {
       context.drawImage(bg, this.imageWidth - this.x - speed, 0, 3000, 500, 0, 0, 3000, 500);
     }
-    
   }
 
   drawGrid() {

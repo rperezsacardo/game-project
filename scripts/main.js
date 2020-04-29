@@ -8,5 +8,20 @@ const player = new Player(game);
 
 // contex.fillRect(0, 0, 50, 50);
 
-game.start();
-//game.enemyCleaner();
+const $buttonStart = document.getElementById('start');
+const $buttonPause = document.getElementById('pause');
+const $buttonReset = document.getElementById('reset');
+
+$buttonStart.addEventListener('click', () => {
+  game.start();
+});
+
+$buttonPause.addEventListener('click', () => {
+  game.pause();
+});
+
+$buttonReset.addEventListener('click', () => {
+  game.restart();
+});
+
+//game.start();

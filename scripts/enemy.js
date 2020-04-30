@@ -32,10 +32,11 @@ class Enemy {
   }
 
   runLogic() {
-    if (this.speed < 10) {
-      this.speed = 20;
+    let speed = this.game.speed;
+    if (speed < 10) {
+      speed = 20;
     }
-    this.x -= this.speed;
+    this.x -= speed;
   }
   sortEnemy() {
     // Random type of enemy

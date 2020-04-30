@@ -5,12 +5,13 @@ class Coin {
     this.y = this.randomPositionY();
     // this.coinSizeX = 50;
     // this.coinSizeY = 50;
-    this.speed = this.game.speed;
+    this.speed = game.difficult.speed;
     this.updateSpeed = this.speed;
     this.coinImg = new Image();
     this.coinImg.src = './images/ovo_02.png';
     this.coinSizeX = this.coinImg.width; // 50
     this.coinSizeY = this.coinImg.height; // 50
+    
   }
 
   draw() {
@@ -21,6 +22,7 @@ class Coin {
   }
 
   runLogic() {
+    const speed = this.game.difficult.speed;
     this.x -= this.speed;
   }
 
@@ -50,7 +52,7 @@ class Coin {
   randomPositionX() {
     let randomNumb = Math.floor(Math.random() * 3); //...
     const resultY = [1000, 1200, 1300]; // Possible coins positions
-    return resultY[randomNumb]
+    return resultY[randomNumb];
   }
 
   checkOtherCoins() {

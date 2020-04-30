@@ -8,19 +8,9 @@ class Background {
     this.imageWidth = this.backgroundImage.width;
     this.imageheight = this.backgroundImage.height;
     this.x = 0;
-    this.speed = game.speed;
+    this.speed = game.difficult.speed;
   }
-  // draw2() {
-  //   const context = this.game.context;
-  //   const bg = this.backgroundImage;
-  //   const speed = this.game.speed;
-  //   context.drawImage(bg, this.x, 0);
-  //   context.drawImage(bg, this.x + this.imageWidth, 0);
-  //   context.drawImage(bg, this.x + this.imageWidth * 2, 0);
 
-  //   context.fillStyle = 'yellow';
-  //   context.fillRect(600, 500, 3000, 300);
-  // }
   draw() {
     const speed = this.speed;
     const context = this.game.context;
@@ -63,40 +53,3 @@ class Background {
     }
   }
 }
-
-// BG JUST MOVE ONE TIME
-// const context = this.game.context;
-// if ((this.x -= speed) > 0) {
-//   context.drawImage(
-//     this.backgroundImage,
-//     this.imageWidth - this.x - speed,
-//     0,
-//     3000,
-//     500,
-//     0,
-//     0,
-//     3000,
-//     500
-//   );
-// } else {
-//   context.fillStyle = 'yellow';
-//   context.fillRect(600, 500, 3000, 300);
-// ---------------------------------------------
-// draw() {
-//   // BG JUST MOVE ONE TIME
-//   const speed = this.game.speed;
-//   const context = this.game.context;
-//   if ((this.x -= speed) > 0) {
-//     context.drawImage(
-//       this.backgroundImage,
-//       this.imageWidth - this.x - speed, // image start point
-//       0, // image start  point
-//       3000, // image subretangle
-//       500, // image subrettangle
-//       0, // canvas start point
-//       0, // canvas stat point
-//       this.imageWidth, // final scale
-//       this.height //  final scale
-//     );
-//   }
-// }

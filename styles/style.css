@@ -4,26 +4,34 @@
 
 body {
   display: flex;
-  margin: 0;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
   align-items: center;
-  justify-content: center;
+
   font-family: 'Caesar Dressing', cursive;
+}
+h1 {
+  display: flex;
+  position: relative;
+  align-items: center;
 }
 
 aside {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  border-left: 1em solid #4caf50;
+}
+canvas {
 }
 
 button {
   font: 'Caesar Dressin';
   font-size: 2em;
   color: inherit;
-  margin-bottom: 1em;
+  padding: 0em 1em;
+  margin-bottom: 2em;
   background-color: #4caf50;
-  border-style: solid;
-  border-radius: 1em;
+  border: 1em solid white;
 }

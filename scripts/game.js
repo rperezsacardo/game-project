@@ -4,21 +4,20 @@ class Game {
     this.context = $canvas.getContext('2d');
     this.width = $canvas.width;
     this.height = $canvas.height;
-    this.speed = 8; // global speed
-    this.coinTimer = 0;
     this.coinInterval = 800;
     this.enemyTimer = 0;
     this.enemyInterval = 3000; // Play with this number, try the same logic of coin/enemy position ==> Math.Random and Array
-    this.coinArr = [];
     this.enemyArr = [];
-    this.totalCoins = 0;
+    this.coinArr = [];
+    this.coinTimer = 0;
     this.gameStatus = true;
-    this.win = 50;
     this.resetGame();
     this.gameIsRunning();
     this.setKeyBindings();
-    //this.start();
-    //this.updateSpeed = 10; //this.calculatesDifficult();
+    this.win = 50;
+    this.speed = 8;
+
+    this.playingGame = false;
   }
   setKeyBindings() {
     window.addEventListener('keydown', (event) => {
@@ -49,30 +48,48 @@ class Game {
   }
 
   resetGame() {
+    this.difficult = new Difficult(this);
     this.result = new Results(this);
     this.score = new Score(this);
     this.player = new Player(this);
     this.background = new Background(this);
   }
   restart() {
-    resetGame();
+    console.log('restart');
+    this.gameStatus = true;
+    this.difficult.actualHp = this.difficult.hp;
+    this.playingGame = false;
+    this.resetGame();
   }
 
   start() {
-    this.gameStatus = true;
-    this.loop();
+    if (!this.playingGame) {
+      this.gameStatus = true;
+      this.loop();
+      this.playingGame = true;
+    }
   }
   pause() {
     this.gameStatus = false;
     console.log('pause');
   }
+  livesCount() {
+    const collision = this.player.checkCollisionEnemy();
+
+    if (collision) {
+      this.difficult.actualHp--;
+    }
+    return this.difficult.actualHp;
+  }
 
   gameIsRunning() {
-    const collision = this.player.checkCollisionEnemy();
-    if (collision) {
+    const totalCoins = this.difficult.totalCoins;
+    this.livesCount();
+    const coinsToWin = this.difficult.win;
+    if (this.livesCount() <= 0) {
       this.gameStatus = false;
     }
-    if (this.totalCoins >= this.win) {
+    if (totalCoins >= coinsToWin) {
       this.gameStatus = false;
     }
   }
@@ -83,9 +100,10 @@ class Game {
 
   draw() {
     this.cleanScreen();
-    this.background.draw(this.speed);
+    this.background.draw(this.difficult.speed);
     this.background.loopDraw();
-    this.score.draw();
+    this.score.coinsDraw();
+    this.score.hpDraw();
     for (let coin of this.coinArr) {
       coin.draw();
     }
@@ -128,7 +146,7 @@ class Game {
     for (let i = 0; i < this.coinArr.length; i++) {
       this.coinArr[i].runLogic();
       if (this.coinArr[i].checkCollision()) {
-        this.totalCoins++;
+        this.difficult.totalCoins++;
         this.coinArr.splice(i, 1);
       }
     }
@@ -140,15 +158,6 @@ class Game {
     //this.loose()
   }
 
-  // Balance the game speed
-  calculatesDifficult() {
-    let collectedCoins = 100;
-    if (collectedCoins % 100 === 0) {
-      this.speed++;
-    }
-
-    return this.speed;
-  }
   loop(timestamp) {
     this.enemyGenerator(timestamp); // Can I add this at Enemy Class ?
     this.runLogic();

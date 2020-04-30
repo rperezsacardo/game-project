@@ -6,14 +6,14 @@ class Game {
     this.height = $canvas.height;
     this.speed = 8; // global speed
     this.coinTimer = 0;
-    this.coinInterval = 1500;
+    this.coinInterval = 800;
     this.enemyTimer = 0;
-    this.enemyInterval = 5000; // Play with this number, try the same logic of coin/enemy position ==> Math.Random and Array
+    this.enemyInterval = 3000; // Play with this number, try the same logic of coin/enemy position ==> Math.Random and Array
     this.coinArr = [];
     this.enemyArr = [];
     this.totalCoins = 0;
     this.gameStatus = true;
-    this.win = 10;
+    this.win = 50;
     this.resetGame();
     this.gameIsRunning();
     this.setKeyBindings();

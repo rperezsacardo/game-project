@@ -43,14 +43,14 @@ class Coin {
   }
 
   randomPositionY() {
-    let randomNumb = Math.floor(Math.random() * 4); //...
-    const resultY = [100, 200, 300, 350]; // Possible coins positions
+    let randomNumb = Math.floor(Math.random() * 6); //...
+    const resultY = [100, 200, 200, 300, 300, 350]; // Possible coins positions
     return resultY[randomNumb];
   }
   randomPositionX() {
     let randomNumb = Math.floor(Math.random() * 3); //...
     const resultY = [1000, 1200, 1300]; // Possible coins positions
-    return 1000;
+    return resultY[randomNumb]
   }
 
   checkOtherCoins() {

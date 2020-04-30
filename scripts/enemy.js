@@ -20,15 +20,15 @@ class Enemy {
     // context.fillRect(this.x, this.y, this.enemySizeX, this.enemySizeY);
   }
   randomPositionY() {
-    let randomNumb = Math.floor(Math.random() * 4); //...
-    const resultY = [300, 250, 300, 50]; // Possible enemies positions ==> more at ground level
-    return 223 //resultY[randomNumb];
+    let randomNumb = Math.floor(Math.random() * 5); //...
+    const resultY = [300, 300, 300, 223, 50]; // Possible enemies positions ==> more at ground level
+    return resultY[randomNumb];
     //Try push new values when incrise difficult
   }
   randomPositionX() {
     let randomNumb = Math.floor(Math.random() * 4); //...
     const resultY = [1000, 1000, 1200, 1300]; // Possible coins positions
-    return resultY[randomNumb];
+    return 1000; //resultY[randomNumb];
   }
 
   runLogic() {

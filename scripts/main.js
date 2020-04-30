@@ -23,5 +23,3 @@ $buttonPause.addEventListener('click', () => {
 $buttonReset.addEventListener('click', () => {
   game.restart();
 });
-
-//game.start();

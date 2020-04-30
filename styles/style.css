@@ -4,17 +4,23 @@
 
 body {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: nowrap;
   justify-content: space-around;
   align-items: center;
-
   font-family: 'Caesar Dressing', cursive;
+  background-image: url(../images/Background.png);
+  background-repeat: repeat;
 }
 h1 {
   display: flex;
+  color: aliceblue;
+  font-size: 4em;
   position: relative;
   align-items: center;
+}
+canvas{
+  background-color: ;
 }
 
 aside {
@@ -23,15 +29,13 @@ aside {
   align-items: center;
   justify-content: center;
 }
-canvas {
-}
 
 button {
   font: 'Caesar Dressin';
   font-size: 2em;
-  color: inherit;
+  color: white;
   padding: 0em 1em;
   margin-bottom: 2em;
-  background-color: #4caf50;
-  border: 1em solid white;
+  background-image: url(../images/Button_bg.png);
+  background-size: cover
 }

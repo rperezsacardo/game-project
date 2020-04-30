@@ -7,10 +7,14 @@ class Game {
     this.coinInterval = 800;
     this.coinArr = [];
     this.coinTimer = 0;
+    this.enemyTimer = 0;
+    this.enemyInterval = 3000; // Play with this number, try the same logic of coin/enemy position ==> Math.Random and Array
+    this.enemyArr = [];
     this.setKeyBindings();
     this.win = 50;
     this.speed = 8;
-    this.playingGame = false;
+    this.paused = true;
+    
   }
   setKeyBindings() {
     window.addEventListener('keydown', (event) => {
@@ -46,16 +50,18 @@ class Game {
     this.score = new Score(this);
     this.player = new Player(this);
     this.background = new Background(this);
-    this.enemyGenerator = new EnemyGenerator(this);
+    // this.enemyGenerator = new EnemyGenerator(this);
   }
   restart() {
     console.log('restart');
     this.gameStatus = true;
     this.difficult.actualHp = this.difficult.hp;
     this.playingGame = false;
-    this.enemyGenerator.enemyArr = [];
-    this.enemyGenerator.enemyTimer = 0;
+    this.enemyArr = [];
+    this.enemyTimer = 0;
     this.gameWon = false;
+    
+
     this.start();
   }
 
@@ -67,9 +73,11 @@ class Game {
       this.playingGame = true;
     }
   }
-  pause() {
-    this.gameStatus = false;
-    console.log('pause');
+  pause() {      
+    console.log(this.paused)
+    this.paused = !this.paused 
+    console.log(this.paused)
+    
   }
   livesCount() {
     const collision = this.player.checkCollisionEnemy();
@@ -90,6 +98,12 @@ class Game {
     if (totalCoins >= coinsToWin) {
       this.gameWon = true;
     }
+     if(this.paused){
+       this.gameStatus = true
+     }else{
+      this.gameStatus = false
+     }
+    
   }
 
   cleanScreen() {
@@ -109,8 +123,10 @@ class Game {
       for (let coin of this.coinArr) {
         coin.draw();
       }
+      for (let enemy of this.enemyArr) {
+        enemy.draw();
+      }
       this.result.drawGameOver();
-      this.enemyGenerator.drawEnemy();
     }
   }
 
@@ -124,6 +140,23 @@ class Game {
     //we will create coins at a coinInterval time
   }
 
+  enemyGenerator(timestamp) {
+    // Can I add this at Enemy Class ?
+    if (this.enemyTimer < timestamp - this.enemyInterval) {
+      this.enemyTimer = timestamp;
+      const enemy = new Enemy(this);
+      this.enemyArr.push(enemy);
+    }
+
+    //we will create coins at a coinInterval time
+  }
+
+  enemyCleaner() {
+    // Can I add this at Enemy Class ?
+    const validEnemiesArr = this.enemyArr.filter((element) => element.x > 300);
+    return validEnemiesArr;
+  }
+
   runLogic() {
     for (let i = 0; i < this.coinArr.length; i++) {
       this.coinArr[i].runLogic();
@@ -132,8 +165,10 @@ class Game {
         this.coinArr.splice(i, 1);
       }
     }
+    for (let enemy of this.enemyArr) {
+      enemy.runLogic();
+    }
 
-    this.enemyGenerator.runLogic();
     this.player.runLogic();
     //this.loose()
   }
@@ -141,13 +176,12 @@ class Game {
   loop(timestamp) {
     this.runLogic();
     this.coinGenerator(timestamp); // Can I add this at Coin  Class ?
-    this.enemyGenerator.enemyCleaner();
+    this.enemyCleaner();
     this.gameIsRunning();
-    this.enemyGenerator.enemy(timestamp); // Can I add this at Enemy Class ?
-
+    this.enemyGenerator(timestamp); // Can I add this at Enemy Class ?
     this.draw();
 
-    if (this.gameStatus || !this.gameWon) {
+    if (this.gameStatus && !this.gameWon) {
       window.requestAnimationFrame((timestamp) => this.loop(timestamp));
     }
   }

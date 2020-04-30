@@ -7,21 +7,55 @@
       href="https://fonts.googleapis.com/css?family=Caesar+Dressing|Chelsea+Market&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="styles/style.css" />
   </head>
   <body>
-    <section>
-      <h1>Welcome...run!</h1>
-    </section>
-    <section>
-      <canvas width="1000" height="500"></canvas>
-      <aside>
-        <button id="start">Start</button>
-        <button id="pause">Pause</button>
-        <button id="reset">Restart</button>
-      </aside>
-    </section>
-    <script src="scripts/generator.js"></script>
+    <div class="general">
+      <section>
+        <h1>Welcome...run!</h1>
+      </section>
+      <section>
+        <canvas width="1000" height="500"></canvas>
+        <aside>
+         
+          <div class="container">
+            <div class="row align-items-center">
+              <div class="col">
+                <button type="button" class="btn btn-warning btn-lg " id="start">Start</button>
+              </div>
+              <div class="col">
+                <button type="button" class="btn btn-warning btn-lg " id="pause">Pause</button>
+              </div>
+              <div class="col">
+                <button type="button" class="btn btn-warning btn-lg" id="reset">Restart</button>
+              </div>
+            </div>
+          </div>
+          
+          
+          
+        </aside>
+      </section>
+      <section class="controls">
+        <div>
+          <img src="images/images_opening_jump.png" alt="" />
+          <img src="" alt="" />
+          <h3>Use SPACE to jump</h3>
+        </div>
+        <div>
+          <img src="images/images_opening_slide.png" alt="" />
+          <img src="" alt="" />
+          <h3>Use ARROW DOWN to slide</h3>
+        </div>
+      </section>
+    </div>
+
     <script src="scripts/difficult.js"></script>
     <script src="scripts/result.js"></script>
     <script src="scripts/score.js"></script>

@@ -62,7 +62,7 @@ class Player {
 
   checkCollisionEnemy() {
     let auxArray = [];
-    const validEnemies = this.game.enemyGenerator.enemyCleaner();
+    const validEnemies = this.game.enemyCleaner();
 
     for (let enemy of validEnemies) {
       let valueX = (enemy.x + enemy.enemySizeX / 4) / 2; // try to think a way to update 4 automatic

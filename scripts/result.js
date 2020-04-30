@@ -16,24 +16,20 @@ class Results {
 
   drawWin() {
     const context = this.game.context;
-    const totalCoins = this.game.totalCoins;
-    const coinsToWin = this.game.win;
-
-    console.log('win');
-    context.font = '24px sans-serif';
-    context.fillStyle = 'white';
-    context.fillText(`you win`, 500, 250);
+    const txt = 'You Win';
+    context.font = '48px Chelsea Market';
+    context.fillStyle = 'white'; //'#5BA660';
+    context.fillText(txt, 300, 250);
   }
 
   draw() {
     const context = this.game.context;
     const gameStatus = this.game.gameStatus;
     if (!gameStatus) {
-      context.save();
-      context.translate(100, 100);
-      context.font = '24px sans-serif';
-      context.fillStyle = 'green';
-      context.fillText(`GAME OVER`, 500, 250);
+      const txt = 'Game Over';
+      context.font = '48px Chelsea Market';
+      context.fillStyle = 'white'; //'#5BA660';
+      context.fillText(txt, 300, 250);
     }
   }
 

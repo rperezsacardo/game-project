@@ -14,28 +14,51 @@ body {
 }
 h1 {
   display: flex;
+  justify-content: center;
   color: aliceblue;
+
   font-size: 4em;
   position: relative;
   align-items: center;
-}
-canvas{
-  background-color: ;
-}
-
-aside {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  letter-spacing: 15px;
 }
 
 button {
-  font: 'Caesar Dressin';
-  font-size: 2em;
-  color: white;
   padding: 0em 1em;
   margin-bottom: 2em;
-  background-image: url(../images/Button_bg.png);
-  background-size: cover
+}
+
+#start,
+#reset,
+#pause {
+  display: flex;
+  font-size: 2em;
+  background-color: #d1a44f;
+  color: white;
+  font: 'Caesar Dressin';
+  margin: auto;
+}
+canvas {
+  margin-bottom: 1em;
+}
+.controls {
+  font-family: Chelsea Market;
+  color: #ffff;
+
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  background-color: #5ba660;
+}
+
+.controls div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1em;
+}
+
+.general {
+  background-color: #5ba660;
+  padding: 2em;
 }

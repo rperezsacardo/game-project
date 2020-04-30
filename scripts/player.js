@@ -11,12 +11,19 @@ class Player {
     this.playerImg.src = './images/player_01.png';
     this.playerSizeX = this.playerImg.width; // 100
     this.playerSizeY = this.playerImg.height; // 150
+    this.actualMoviment = 'running'; // 'jump' or 'slide'
+    this.playerJumpImg = new Image();
+    this.playerJumpImg.src = './images/images_opening_jump.png';
+    this.playerSlideImg = new Image();
+    this.playerSlideImg.src = './images/images_opening_slide.png';
+    this.player = this.playerImg;
 
     //
   }
 
   moveDown() {
     if (!this.jumping) {
+      this.player = this.playerSlideImg;
       this.y = 310;
       this.down = true;
     }
@@ -39,11 +46,13 @@ class Player {
         this.loopGravity();
       }, 1000 / 60);
     } else {
+      this.player = this.playerImg;
       this.jumping = false;
     }
   }
   jump() {
     this.y += (this.velocityY + (this.GRAVITY / 1000) * 16) * this.friction;
+    this.player = this.playerJumpImg;
     if (this.y > 50) {
       setTimeout(() => {
         this.jump();
@@ -55,6 +64,7 @@ class Player {
 
   moveReset() {
     if (!this.jumping) {
+      this.player = this.playerImg;
       this.y = 250;
       this.down = false;
     }
@@ -72,6 +82,7 @@ class Player {
         auxArray.push(result);
       }
     }
+
     if (!auxArray.length) {
       return false;
     } else {
@@ -91,12 +102,7 @@ class Player {
   }
 
   draw() {
-    const context = this.game.context;
-    // context.fillStyle = 'navy';
-    // context.fillRect(this.x, this.y, this.playerSizeX, this.playerSizeY);
-
-    const player = this.playerImg;
-    context.drawImage(player, this.x, this.y);
+    context.drawImage(this.player, this.x, this.y);
   }
   runLogic() {
     // // this.checkCollisionCoins();

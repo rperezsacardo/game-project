@@ -8,13 +8,12 @@ class Game {
     this.coinArr = [];
     this.coinTimer = 0;
     this.enemyTimer = 0;
-    this.enemyInterval = 3000; // Play with this number, try the same logic of coin/enemy position ==> Math.Random and Array
+    this.enemyInterval = 5000; // Play with this number, try the same logic of coin/enemy position ==> Math.Random and Array
     this.enemyArr = [];
     this.setKeyBindings();
     this.win = 50;
     this.speed = 8;
     this.paused = true;
-    
   }
   setKeyBindings() {
     window.addEventListener('keydown', (event) => {
@@ -46,23 +45,30 @@ class Game {
 
   resetGame() {
     this.difficult = new Difficult(this);
+    this.difficult.totalCoins = 0;
     this.result = new Results(this);
     this.score = new Score(this);
     this.player = new Player(this);
     this.background = new Background(this);
+    this.coinArr = [];
+    this.coinTimer = 0;
+    this.enemyTimer = 0;
+    this.enemyArr = [];
+    this.speed = 8;
+
     // this.enemyGenerator = new EnemyGenerator(this);
   }
   restart() {
-    console.log('restart');
-    this.gameStatus = true;
-    this.difficult.actualHp = this.difficult.hp;
+    // this.difficult.actualHp = this.difficult.hp;
     this.playingGame = false;
     this.enemyArr = [];
     this.enemyTimer = 0;
     this.gameWon = false;
-    
-
-    this.start();
+    this.resetGame();
+    if (!this.gameStatus) {
+      this.gameStatus = true;
+      this.loop(0);
+    }
   }
 
   start() {
@@ -73,11 +79,16 @@ class Game {
       this.playingGame = true;
     }
   }
-  pause() {      
-    console.log(this.paused)
-    this.paused = !this.paused 
-    console.log(this.paused)
-    
+  pause() {
+    if (this.gameStatus) {
+      this.gameStatus = !this.gameStatus;
+    } else {
+      this.gameStatus = !this.gameStatus;
+      this.loop();
+    }
+    // console.log(this.paused)
+    // this.paused = !this.paused
+    // console.log(this.paused)
   }
   livesCount() {
     const collision = this.player.checkCollisionEnemy();
@@ -90,20 +101,14 @@ class Game {
 
   gameIsRunning() {
     const totalCoins = this.difficult.totalCoins;
-    this.livesCount();
+    const hp = this.difficult.actualHp;
     const coinsToWin = this.difficult.win;
-    if (this.livesCount() <= 0) {
+    if (hp < 1) {
       this.gameStatus = false;
     }
     if (totalCoins >= coinsToWin) {
       this.gameWon = true;
     }
-     if(this.paused){
-       this.gameStatus = true
-     }else{
-      this.gameStatus = false
-     }
-    
   }
 
   cleanScreen() {
@@ -142,6 +147,9 @@ class Game {
 
   enemyGenerator(timestamp) {
     // Can I add this at Enemy Class ?
+    if (this.enemyTimer === 0 || !this.enemyTimer) {
+      this.enemyTimer = timestamp;
+    }
     if (this.enemyTimer < timestamp - this.enemyInterval) {
       this.enemyTimer = timestamp;
       const enemy = new Enemy(this);
@@ -168,7 +176,7 @@ class Game {
     for (let enemy of this.enemyArr) {
       enemy.runLogic();
     }
-
+    this.livesCount();
     this.player.runLogic();
     //this.loose()
   }
@@ -180,7 +188,7 @@ class Game {
     this.gameIsRunning();
     this.enemyGenerator(timestamp); // Can I add this at Enemy Class ?
     this.draw();
-
+    console.log(this.enemyArr);
     if (this.gameStatus && !this.gameWon) {
       window.requestAnimationFrame((timestamp) => this.loop(timestamp));
     }

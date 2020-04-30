@@ -16,8 +16,8 @@ function opening() {
   const jumpImg = new Image();
   jumpImg.src = './images/player_01.png';
   context.drawImage(jumpImg, 0, 0);
-  const openingTxt = 'Welcomo to the Run';
-  context.font = '48px Chelsea Market';
+  const openingTxt = 'Help Allan to collect dinosaur eggs';
+  context.font = '32px Chelsea Market';
   context.fillStyle = 'white'; //'#5BA660';
   context.fillText(openingTxt, 300, 250);
 }

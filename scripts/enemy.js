@@ -22,7 +22,7 @@ class Enemy {
   }
   randomPositionY() {
     let randomNumb = Math.floor(Math.random() * 5); //...
-    const resultY = [200, 350, 150, 223, 50]; // Possible enemies positions ==> more at ground level
+    const resultY = [200, 350, 150, 223, 100]; // Possible enemies positions ==> more at ground level
     return resultY[randomNumb];
     //Try push new values when incrise difficult
   }

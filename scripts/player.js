@@ -1,7 +1,10 @@
 const dinoSound = new Audio('../sounds/dino_sfx.mp3');
 const hitSound = new Audio('../sounds/hit_sfx.mp3');
 const jumpSound = new Audio('../sounds/jump_sfx.mp3');
-const hit02Sound = new Audio('../sounds/hit_02_sfx.mp3');
+const hit02Sound = new Audio('../sounds/hit02_sfx.mp3');
+const wing = new Audio('../sounds/wing.mp3');
+const slideIn = new Audio('../sounds/slide_in.mp3');
+const slideOut = new Audio('../sounds/slide_out.mp3');
 
 class Player {
   constructor(game) {
@@ -32,6 +35,7 @@ class Player {
       this.y = 310;
       this.down = true;
       hitSound.play();
+      slideIn.play();
     }
   }
 
@@ -43,7 +47,6 @@ class Player {
       this.loopGravity();
       this.jumping = true;
       jumpSound.play();
-      hitSound.play();
     }
   }
   loopGravity() {
@@ -75,6 +78,7 @@ class Player {
       this.player = this.playerImg;
       this.y = 250;
       this.down = false;
+      slideOut.play();
     }
   }
 

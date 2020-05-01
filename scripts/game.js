@@ -1,5 +1,6 @@
 const jungleSound = new Audio('../sounds/jungle_sfx.mp3');
 const gameOverSound = new Audio('../sounds/game_over_sfx.mp3');
+const win = new Audio('../sounds/win.mp3');
 
 class Game {
   constructor($canvas) {
@@ -7,7 +8,7 @@ class Game {
     this.context = $canvas.getContext('2d');
     this.width = $canvas.width;
     this.height = $canvas.height;
-    this.coinInterval = 800;
+    this.coinInterval = 1000;
     this.coinArr = [];
     this.coinTimer = 0;
     this.enemyTimer = 0;
@@ -56,7 +57,7 @@ class Game {
     this.enemyTimer = 0;
     this.enemyArr = [];
     this.speed = this.difficult.speed;
-    this.playSound = false;
+    win.pause();
 
     // this.enemyGenerator = new EnemyGenerator(this);
   }
@@ -79,14 +80,17 @@ class Game {
       this.gameStatus = true;
       this.loop();
       this.playingGame = true;
-      this.playBackground();
+      jungleSound.play();
+      // this.playBackground();
     }
   }
   pause() {
     if (this.gameStatus) {
       this.gameStatus = !this.gameStatus;
+      jungleSound.pause();
     } else {
       this.gameStatus = !this.gameStatus;
+      jungleSound.play();
       this.loop();
     }
     // console.log(this.paused)
@@ -94,10 +98,14 @@ class Game {
     // console.log(this.paused)
   }
 
-  playBackground() {
-    jungleSound.play();
-    setInterval(this.playBackground(), 1000);
-  }
+  // playBackground() {
+  //   if (this.gameStatus && !this.gameWon) {
+  //     jungleSound.play();
+  //     setInterval(this.playBackground(), 1000);
+  //   } else {
+  //     jungleSound.pause();
+  //   }
+  // }
   livesCount() {
     const collision = this.player.checkCollisionEnemy();
 
@@ -113,10 +121,11 @@ class Game {
     const coinsToWin = this.difficult.win;
     if (hp < 1) {
       this.gameStatus = false;
-      gameOverSound.play()
+      gameOverSound.play();
     }
     if (totalCoins >= coinsToWin) {
       this.gameWon = true;
+      win.play();
     }
   }
 

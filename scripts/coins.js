@@ -1,3 +1,5 @@
+const egg = new Audio('../sounds/egg.mp3');
+
 class Coin {
   constructor(game) {
     this.game = game;
@@ -11,7 +13,6 @@ class Coin {
     this.coinImg.src = './images/ovo_02.png';
     this.coinSizeX = this.coinImg.width; // 50
     this.coinSizeY = this.coinImg.height; // 50
-    
   }
 
   draw() {
@@ -40,13 +41,14 @@ class Coin {
       this.y >= playerY &&
       this.y <= playerY + playerSizeY
     ) {
+      egg.play();
       return true;
     }
   }
 
   randomPositionY() {
     let randomNumb = Math.floor(Math.random() * 6); //...
-    const resultY = [100, 200, 200, 300, 300, 350]; // Possible coins positions
+    const resultY = [100, 250, 250, 300, 300, 350]; // Possible coins positions
     return resultY[randomNumb];
   }
   randomPositionX() {

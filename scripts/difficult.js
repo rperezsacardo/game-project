@@ -1,9 +1,9 @@
 class Difficult {
   constructor(game) {
     this.game = game;
-    this.win = 15;
+    this.win = 30;
     this.speed = 8;
-    this.inicialHp = 100;
+    this.inicialHp = 30;
     this.hp = this.inicialHp;
     this.actualHp = this.inicialHp;
     this.totalCoins = 0;

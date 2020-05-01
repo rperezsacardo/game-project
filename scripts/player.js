@@ -1,3 +1,8 @@
+const dinoSound = new Audio('../sounds/dino_sfx.mp3');
+const hitSound = new Audio('../sounds/hit_sfx.mp3');
+const jumpSound = new Audio('../sounds/jump_sfx.mp3');
+const hit02Sound = new Audio('../sounds/hit_02_sfx.mp3');
+
 class Player {
   constructor(game) {
     this.game = game;
@@ -26,6 +31,7 @@ class Player {
       this.player = this.playerSlideImg;
       this.y = 310;
       this.down = true;
+      hitSound.play();
     }
   }
 
@@ -36,6 +42,8 @@ class Player {
       this.jump();
       this.loopGravity();
       this.jumping = true;
+      jumpSound.play();
+      hitSound.play();
     }
   }
   loopGravity() {
@@ -80,16 +88,18 @@ class Player {
       const result = this.calcDistance(valueX, valueY);
       if (result < 40) {
         auxArray.push(result);
+        dinoSound.play();
+        hit02Sound.play();
       }
-    }
 
-    if (!auxArray.length) {
-      return false;
-    } else {
-      return true;
-    }
+      if (!auxArray.length) {
+        return false;
+      } else {
+        return true;
+      }
 
-    // return collided;
+      // return collided;
+    }
   }
 
   calcDistance(x2, y2) {

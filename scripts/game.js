@@ -1,6 +1,5 @@
-const jungleSound = new Audio(
-  '../sounds/Jungle_Rumble_Drums_Rhythm_Scott_instrumental_WATERMARKED.mp3'
-);
+const jungleSound = new Audio('../sounds/jungle_sfx.mp3');
+const gameOverSound = new Audio('../sounds/game_over_sfx.mp3');
 
 class Game {
   constructor($canvas) {
@@ -12,7 +11,7 @@ class Game {
     this.coinArr = [];
     this.coinTimer = 0;
     this.enemyTimer = 0;
-    this.enemyInterval = 1000; // Play with this number, try the same logic of coin/enemy position ==> Math.Random and Array
+    this.enemyInterval = 800; // Play with this number, try the same logic of coin/enemy position ==> Math.Random and Array
     this.enemyArr = [];
     this.setKeyBindings();
     this.win = 50;
@@ -97,7 +96,7 @@ class Game {
 
   playBackground() {
     jungleSound.play();
-    setInterval(this.playBackground, 1000);
+    setInterval(this.playBackground(), 1000);
   }
   livesCount() {
     const collision = this.player.checkCollisionEnemy();
@@ -114,6 +113,7 @@ class Game {
     const coinsToWin = this.difficult.win;
     if (hp < 1) {
       this.gameStatus = false;
+      gameOverSound.play()
     }
     if (totalCoins >= coinsToWin) {
       this.gameWon = true;

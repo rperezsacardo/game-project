@@ -15,8 +15,7 @@ body {
 h1 {
   display: flex;
   justify-content: center;
-  color: #ffdb83;
-  /* -webkit-text-stroke: 3px#5BA660; */
+  color: #ffffff;
   font-size: 4em;
   position: relative;
   align-items: center;
@@ -61,7 +60,6 @@ canvas {
   align-items: center;
   align-content: center;
   background-color: #5ba660;
-  
 }
 
 .general {

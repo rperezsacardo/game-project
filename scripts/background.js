@@ -27,7 +27,6 @@ class Background {
   }
 
   draw() {
-    // const speed = this.speed;
     const context = this.game.context;
     let speed = this.speed;
 
@@ -39,10 +38,10 @@ class Background {
       this.x -= speed;
       speed = (speed / backgroundLayers.length) * i; // reduce the speed of the first layres
       const layer = backgroundLayers[i];
-      console.log(speed);
+
       // const outset = (distance * i / 5) % width;
       context.drawImage(layer, this.x - speed, 0);
-      console.log(this.x);
+
       context.drawImage(layer, this.x + this.backgroundImage.width - speed, 0);
     }
   }

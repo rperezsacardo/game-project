@@ -41,7 +41,6 @@ class Player {
 
   moveJump() {
     if (!this.jumping && !this.down) {
-      console.log('jump');
       this.velocityY = -10; //
       this.jump();
       this.loopGravity();

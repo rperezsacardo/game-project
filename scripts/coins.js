@@ -18,8 +18,6 @@ class Coin {
   draw() {
     const context = this.game.context;
     context.drawImage(this.coinImg, this.x, this.y, this.coinSizeX / 4, this.coinSizeY / 4);
-    // context.fillStyle = 'green';
-    // context.fillRect(this.x, this.y, this.coinSizeX, this.coinSizeY);
   }
 
   runLogic() {

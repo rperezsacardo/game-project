@@ -45,11 +45,10 @@ function opening() {
   context.fill();
   context.stroke();
   context.restore();
-  
 }
 
 opening();
-openSong.play()
+openSong.play();
 $buttonStart.addEventListener('click', () => {
   game.start();
   clickSound.play();

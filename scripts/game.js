@@ -27,7 +27,7 @@ class Game {
           event.preventDefault();
           this.player.moveJump();
           break;
-        case 37:
+        case 40:
           event.preventDefault();
           this.player.moveDown();
           break;
@@ -36,7 +36,7 @@ class Game {
     window.addEventListener('keyup', (event) => {
       // reset to normal position
       event.code;
-      if (event.code === 'ArrowLeft') {
+      if (event.code === 'ArrowDown') {
         event.preventDefault();
         this.player.moveReset();
       }
@@ -93,19 +93,8 @@ class Game {
       jungleSound.play();
       this.loop();
     }
-    // console.log(this.paused)
-    // this.paused = !this.paused
-    // console.log(this.paused)
   }
 
-  // playBackground() {
-  //   if (this.gameStatus && !this.gameWon) {
-  //     jungleSound.play();
-  //     setInterval(this.playBackground(), 1000);
-  //   } else {
-  //     jungleSound.pause();
-  //   }
-  // }
   livesCount() {
     const collision = this.player.checkCollisionEnemy();
 
@@ -135,8 +124,7 @@ class Game {
 
   draw() {
     this.cleanScreen();
-    this.background.draw(this.difficult.speed);
-    this.background.loopDraw();
+    this.background.draw();
     this.score.coinsDraw();
     this.score.hpDraw();
     this.player.draw();
@@ -145,9 +133,11 @@ class Game {
     } else {
       for (let coin of this.coinArr) {
         coin.draw();
+        this.score.coinsDraw();
       }
       for (let enemy of this.enemyArr) {
         enemy.draw();
+        this.score.hpDraw();
       }
       this.result.drawGameOver();
     }

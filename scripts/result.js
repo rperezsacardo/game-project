@@ -1,6 +1,9 @@
 const eggImg = new Image();
 eggImg.src = './images/ovo_02.png';
 
+const gameOverImg = new Image();
+gameOverImg.src = './images/image_gave_over.png';
+
 class Results {
   constructor(game) {
     this.game = game;
@@ -9,6 +12,7 @@ class Results {
     this.eggImg = eggImg;
     this.eggSizeX = this.eggImg.width; // 50
     this.eggSizeY = this.eggImg.height; // 50
+    this.gameOverImg = gameOverImg;
   }
 
   drawGameOver() {
@@ -32,15 +36,16 @@ class Results {
       const txt = 'Game Over';
       context.font = '48px Chelsea Market';
       context.fillStyle = 'white'; //'#5BA660';
-      context.fillText(txt, 350, 250);
+      context.fillText(txt, 350, 200);
       context.restore();
 
       context.save();
       const txt2 = 'try again';
       context.font = '32px Chelsea Market';
       context.fillStyle = 'white'; //'#5BA660';
-      context.fillText(txt2, 412, 300);
+      context.fillText(txt2, 412, 250);
       context.restore();
+      context.drawImage(this.gameOverImg,450 , 330, this.gameOverImg.width, this.gameOverImg.height);
     }
   }
 

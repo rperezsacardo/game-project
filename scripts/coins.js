@@ -48,12 +48,12 @@ class Coin {
 
   randomPositionY() {
     let randomNumb = Math.floor(Math.random() * 6); //...
-    const resultY = [100, 250, 250, 300, 300, 350]; // Possible coins positions
+    const resultY = [100, 250, 250, 350, 350, 400]; // Possible coins positions
     return resultY[randomNumb];
   }
   randomPositionX() {
     let randomNumb = Math.floor(Math.random() * 3); //...
-    const resultY = [1000, 1200, 1300]; // Possible coins positions
+    const resultY = [1000, 1000, 1500]; // Possible coins positions
     return resultY[randomNumb];
   }
 

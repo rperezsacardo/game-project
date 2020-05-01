@@ -3,7 +3,7 @@ class Difficult {
     this.game = game;
     this.win = 20;
     this.speed = 8;
-    this.inicialHp = 30;
+    this.inicialHp = 50;
     this.hp = this.inicialHp;
     this.actualHp = this.inicialHp;
     this.totalCoins = 0;
@@ -12,7 +12,6 @@ class Difficult {
   calculatesDifficult() {
     if (this.totalCoins > 0 && this.totalCoins % 10 === 0 && this.speed < this.maxSpeed) {
       this.speed += 0.05;
-      console.log(this.speed);
     }
   }
 }

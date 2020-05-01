@@ -27,8 +27,16 @@ class Score {
     const hp = this.game.difficult.hp;
     context.drawImage(this.bgHPImg, 25, 100);
 
-    context.font = '18px Chelsea Market';
+    context.save();
+    context.font = '22  px Caesar Dressing';
     context.fillStyle = 'white';
-    context.fillText(`${actualHp}/${hp}`, 90, 130);
+    context.strokeStyle = 'black';
+    context.lineWidth = 0.5;
+    context.textAlign = 'center';
+    context.fillText(`${actualHp}/${hp}`, 110, 130);
+    context.strokeText(`${actualHp}/${hp}`, 110, 130);
+    context.fill();
+    context.stroke();
+    context.restore();
   }
 }

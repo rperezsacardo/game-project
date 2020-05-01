@@ -15,8 +15,8 @@ body {
 h1 {
   display: flex;
   justify-content: center;
-  color: aliceblue;
-
+  color: #ffdb83;
+  /* -webkit-text-stroke: 3px#5BA660; */
   font-size: 4em;
   position: relative;
   align-items: center;
@@ -40,22 +40,26 @@ button {
 }
 canvas {
   margin-bottom: 1em;
+  margin-left: auto;
+  margin-right: auto;
+  background: rgb(255, 219, 128);
+  background: radial-gradient(circle, rgba(255, 219, 128, 1) 51%, rgba(209, 164, 79, 1) 100%);
+  border: #97711b;
+  border: 4mm ridge rgba(151, 113, 27, 1);
+  border-radius: 1em;
 }
+
 .controls {
   font-family: Chelsea Market;
   color: #ffff;
-
-  flex-direction: row;
+  padding: 5em;
+  display: flex;
+  flex-direction: column;
   flex-wrap: nowrap;
   justify-content: space-around;
-  background-color: #5ba660;
-}
-
-.controls div {
-  display: flex;
-  flex-direction: row;
   align-items: center;
-  padding: 1em;
+  align-content: center;
+  background-color: #5ba660;
 }
 
 .general {

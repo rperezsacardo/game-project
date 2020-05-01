@@ -8,7 +8,7 @@ class Player {
     this.GRAVITY = 0.99;
     this.friction = 0.5;
     this.playerImg = new Image();
-    this.playerImg.src = './images/player_01.png';
+    this.playerImg.src = './images/player_02.png';
     this.playerSizeX = this.playerImg.width; // 100
     this.playerSizeY = this.playerImg.height; // 150
     this.actualMoviment = 'running'; // 'jump' or 'slide'

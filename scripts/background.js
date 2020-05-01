@@ -1,4 +1,4 @@
-const backgroundImage = new Image()
+const backgroundImage = new Image();
 backgroundImage.src = './images/image1000x500.png';
 
 class Background {
@@ -6,7 +6,7 @@ class Background {
     this.game = game;
     this.width = game.width;
     this.height = game.height;
-    this.backgroundImage = backgroundImage
+    this.backgroundImage = backgroundImage;
     this.imageWidth = this.backgroundImage.width;
     this.imageheight = this.backgroundImage.height;
     this.x = 0;

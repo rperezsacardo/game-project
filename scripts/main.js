@@ -12,14 +12,37 @@ const $buttonStart = document.getElementById('start');
 const $buttonPause = document.getElementById('pause');
 const $buttonReset = document.getElementById('reset');
 
+const jumpImg = new Image();
+jumpImg.src = './images/opening.png';
+context.drawImage(jumpImg, 500, 550, 0, 0);
+
 function opening() {
-  const jumpImg = new Image();
-  jumpImg.src = './images/player_01.png';
-  context.drawImage(jumpImg, 0, 0);
-  const openingTxt = 'Help Allan to collect dinosaur eggs';
-  context.font = '32px Chelsea Market';
+  context.save();
+  const openingTxt = 'Help Allan to collect';
+
+  context.textAlign = 'center';
+  context.font = '48px Chelsea Market';
+  context.strokeStyle = '#97711B';
+  context.lineWidth = 1;
   context.fillStyle = 'white'; //'#5BA660';
-  context.fillText(openingTxt, 300, 250);
+  context.fillText(openingTxt, 500, 200);
+  context.strokeText(openingTxt, 500, 200);
+  context.fill();
+  context.stroke();
+  context.restore();
+
+  context.save();
+  const openingTxt2 = 'dinosaur all eggs';
+  context.textAlign = 'center';
+  context.font = '48px Chelsea Market';
+  context.strokeStyle = '#97711B';
+  context.lineWidth = 1;
+  context.fillStyle = 'white'; //'#5BA660';
+  context.fillText(openingTxt2, 500, 300);
+  context.strokeText(openingTxt2, 500, 300);
+  context.fill();
+  context.stroke();
+  context.restore();
 }
 
 opening();

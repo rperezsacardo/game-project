@@ -6,9 +6,6 @@ const openSong = new Audio('../sounds/pening_song.mp3.mp3');
 
 const game = new Game($canvas);
 const player = new Player(game);
-// contex.fillStyle = 'black';
-
-// contex.fillRect(0, 0, 50, 50);
 
 const $buttonStart = document.getElementById('start');
 const $buttonPause = document.getElementById('pause');
@@ -26,7 +23,7 @@ function opening() {
   context.font = '48px Chelsea Market';
   context.strokeStyle = '#97711B';
   context.lineWidth = 1;
-  context.fillStyle = 'white'; //'#5BA660';
+  context.fillStyle = 'white';
   context.fillText(openingTxt, 500, 200);
   context.strokeText(openingTxt, 500, 200);
   context.fill();
@@ -39,7 +36,7 @@ function opening() {
   context.font = '48px Chelsea Market';
   context.strokeStyle = '#97711B';
   context.lineWidth = 1;
-  context.fillStyle = 'white'; //'#5BA660';
+  context.fillStyle = 'white';
   context.fillText(openingTxt2, 500, 300);
   context.strokeText(openingTxt2, 500, 300);
   context.fill();

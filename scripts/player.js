@@ -41,7 +41,7 @@ class Player {
 
   moveJump() {
     if (!this.jumping && !this.down) {
-      this.velocityY = -10; //
+      this.velocityY = -10;
       this.jump();
       this.loopGravity();
       this.jumping = true;
@@ -66,7 +66,7 @@ class Player {
     if (this.y > 50) {
       setTimeout(() => {
         this.jump();
-      }, 1000 / 60); //how ease this curve ?
+      }, 1000 / 60);
     } else {
       this.velocityY *= -1;
     }
@@ -106,8 +106,8 @@ class Player {
   }
 
   calcDistance(x2, y2) {
-    let x1 = (this.x + this.playerSizeX) / 2; // middle
-    let y1 = (this.y + this.playerSizeY) / 2; // middle
+    let x1 = (this.x + this.playerSizeX) / 2;
+    let y1 = (this.y + this.playerSizeY) / 2;
 
     const xDist = x2 - x1;
     const yDist = y2 - y1;

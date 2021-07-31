@@ -21,7 +21,6 @@ class Coin {
   }
 
   runLogic() {
-    const speed = this.game.difficult.speed;
     this.x -= this.speed;
   }
 
@@ -58,7 +57,7 @@ class Coin {
   checkOtherCoins() {
     //avoid impossible coins
   }
-  checKEnemys() {
+  checkEnemys() {
     //avoid impossible coins
   }
 }

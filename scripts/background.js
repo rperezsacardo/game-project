@@ -20,8 +20,8 @@ class Background {
     this.width = game.width;
     this.height = game.height;
     this.backgroundImage = backgroundImage;
-    this.imageWidth = this.width; //1000; assuming that canvas and image have the same size
-    this.imageheight = this.height; // 500;
+    this.imageWidth = this.width; 
+    this.imageHeight = this.height; 
     this.x = 0;
     this.speed = game.difficult.speed;
   }
@@ -36,10 +36,9 @@ class Background {
 
     for (let i = 0; i < backgroundLayers.length; i++) {
       this.x -= speed;
-      speed = (speed / backgroundLayers.length) * i; // reduce the speed of the first layres
+      speed = (speed / backgroundLayers.length) * i; // reduce the speed of the first layers
       const layer = backgroundLayers[i];
 
-      // const outset = (distance * i / 5) % width;
       context.drawImage(layer, this.x - speed, 0);
 
       context.drawImage(layer, this.x + this.backgroundImage.width - speed, 0);
